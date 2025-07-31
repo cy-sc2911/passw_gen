@@ -14,14 +14,16 @@ def generate_password(length, nums, special_chars, uppercase, lowercase):
         # Generate password
         for _ in range(length):
             password += secrets.choice(all_characters)
-        constraints = [(nums, " ")]
+        constraints = [(nums, r'\d'), # \d is a shorthand for [0-9]
+                       (lowercase, r'[a-z]'),
+                       (uppercase, r'[A-Z]'),
+                       (special_chars, r'\W') # \W is a shorthand for [^a-zA-Z0-9_]
+                       ]
     
     return password
 
-# The re.compile() function compiles the string passed as
-# the arugment into a regular expression object that
-# can be used by other 're' methods
-# the '+' quantifier means it should repeat one or more times
-pattern = re.compile('l+')
+# Check generated password meets the criteria
+# A character class is indicated by square brackets
+pattern = r'\.'
 quote = "Not all those who wander are lost."
-print(pattern.search(quote))
+print(re.findall(pattern, quote))
