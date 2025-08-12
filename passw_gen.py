@@ -17,13 +17,9 @@ def generate_password(length, nums, special_chars, uppercase, lowercase):
         constraints = [(nums, r'\d'), # \d is a shorthand for [0-9]
                        (lowercase, r'[a-z]'),
                        (uppercase, r'[A-Z]'),
-                       (special_chars, r'\W') # \W is a shorthand for [^a-zA-Z0-9_]
+                       (special_chars, fr'[{symbols}]') 
+                       # fr'[{symbols}]' safely builds a regex character class from dynamic input while preserving special characters
                        ]
+                        # Check constraints
     
     return password
-
-# Check generated password meets the criteria
-# A character class is indicated by square brackets
-pattern = r'\.'
-quote = "Not all those who wander are lost."
-print(re.findall(pattern, quote))
